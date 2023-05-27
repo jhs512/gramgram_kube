@@ -19,6 +19,8 @@ jobs:
         env:
          APPLICATION_SECRET: ${{ secrets.APPLICATION_SECRET_YML }}
         run: echo $APPLICATION_SECRET > src/main/resources/application-secret.yml
+      - name: application-secret.yml 확인
+        run: cat src/main/resources/application-secret.yml
       - name: jdk 17 설치
         uses: actions/setup-java@v3
         with:
@@ -81,8 +83,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.actor }}/demo4--2023-02-14-1:${{ needs.tag.outputs.tag_name }},
-            ghcr.io/${{ github.actor }}/demo4--2023-02-14-1:latest
+            ghcr.io/${{ github.actor }}/gramgram-1:${{ needs.tag.outputs.tag_name }},
+            ghcr.io/${{ github.actor }}/gramgram-1:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
   deploy:
@@ -95,4 +97,4 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
       - run: |
-          kubectl set image deployment.apps/demo4--2023-02-14-1-deployment demo4--2023-02-14-1=ghcr.io/jhs512/demo4--2023-02-14-1:${{ needs.tag.outputs.tag_name }}
+          kubectl set image deployment.apps/gramgram-1-deployment gramgram-1=ghcr.io/jhs512/gramgram-1:${{ needs.tag.outputs.tag_name }}
