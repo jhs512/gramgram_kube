@@ -18,9 +18,7 @@ jobs:
       - name: application-secret.yml 생성
         env:
          APPLICATION_SECRET: ${{ secrets.APPLICATION_SECRET_YML }}
-        run: echo $APPLICATION_SECRET > src/main/resources/application-secret.yml
-      - name: application-secret.yml 확인
-        run: cat src/main/resources/application-secret.yml
+        run: echo $APPLICATION_SECRET
       - name: jdk 17 설치
         uses: actions/setup-java@v3
         with:
